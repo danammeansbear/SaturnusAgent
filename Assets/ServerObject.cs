@@ -26,7 +26,7 @@ public class NetMqPublisher
         using (var server = new ResponseSocket())
         {
             server.Bind("tcp://*:12346");
-
+            //socket.bind("tcp://0.0.0.0:5000")
             while (!_listenerCancelled)
             {
                 Connected = _contactWatch.ElapsedMilliseconds < ContactThreshold;

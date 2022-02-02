@@ -1,0 +1,177 @@
+/* 
+Precision agriculture in coding 
+very script kitty 
+
+Agricutural Sensory network 
+- temp sensor
+- humidity
+- yield sensor tractor
+- soil moister
+
+UMV
+- Drones
+	- cameras
+	- gps
+	- drone info
+-rovers
+	- cameras
+	- gps	
+	- actuators
+	- rover info
+- boats
+	- sensor
+	- actuators
+	- boat info
+
+Problem instance:
+	- 
+	An Rc airplane equiped with a GIMBAL camera is at V1 or vector one.
+	with g1 or gimbal angle and A1 be azimuth/direction (N,S,E,W).
+	A person in the field is v2 or vector 2. Assume the gimbal angle directly points at the person or v2. 
+	if given V1(x,y,z),r, A1, G1, please find the location of the person or v2(x1,y1,z1).
+	V1=(39.375346,10, -84.208137)
+	G1=45 degrees
+	A1= 3.14/4 or 45 degrees
+	R= 10 radius to target or distance to target
+	180 degrees = west
+	90 degrees = south
+	270 degrees = north0
+	0 degrees = east
+	
+	
+
+1) figure out monocular distance using opencv or
+base it off a right triangle and the angles. 
+
+	Result
+	Given a=10 and ∠β=45°,
+	b = 10
+	c = 14.14214 = 10√2
+	∠α = 45° = 0.7854 rad = π/4
+	h = 7.07107 = 5√2
+	area = 50
+	perimeter = 34.14214
+	inradius = 2.92893
+	circumradius = 7.07107 = 5√2
+
+Calculation Steps
+The following is one way to perform the calculation. It may not be the best way.
+
+	c =	
+	a/cos(α)
+	=	14.14214 = 10√2
+	b =	√c^2 - √a^2
+	=	√14.1421356237312 - 10^2
+	=	√100
+	=	10
+	∠α =	90° - ∠β
+	=	45° = 0.7854 rad = π/4
+	area =	
+	a × b
+	2
+	=	
+	10 × 10
+	2
+	=	50
+	perimeter =	a + b + c
+	=	10 + 10 + 14.142135623731
+	=	34.14214
+	inradius =	
+	a × b
+	a + b + c
+	=	
+	100
+	34.142135623731
+	=	2.92893
+	circumradius =	
+	c
+	2
+	=	
+	14.142135623731
+	2
+	=	7.07107 = 5√2
+
+code block 
+
+	x = 39.375346
+	y = 10
+	z = -84.208137
+	V1 = (39.375346,10, -84.208137)
+	G1 = 45 degrees
+	A1 = theta = 3.14/4 # or 45 degrees
+	R = 10 #radius to target or distance to target
+	
+	/*180 degrees = west
+	90 degrees = south
+	270 degrees = north0
+	0 degrees = east
+	*/
+	
+	a = V1.[2];
+	c = a/(math.cos(a);
+	b =	math.sqrt((c ** 2) - (a ** 2));
+	
+	
+	
+	
+code block 
+
+	
+	2) run v2 vector two function to get cordinates 
+	V2 is solved by this 
+	x1 = r cos theta + x
+	y1 = y
+	z1 = r sin theta + z
+	
+Using this coordinate system, with y-height, using x' and y' as formulated above, then the line with ending point (x′,y′,z′) will lie on 
+the plane y' = y, parallel to the x-z plane (where y = 0), and if z′=rsin(−θ)+z, if you do it +0 it will point in the direction of the north-east 
+quadrant (towards the quadrant with x>0,z<0), with θ measured with respect to the positive x-axis. On the other hand, given x′,y′ 
+and using z′=rsinθ+z, as I suggest, then the line directed from (x,y,z) towards (x′,y′,z′) will point to the south-east quadrant, with θ measured with respect to the positive x-axis.
+
+code block 
+	
+	x1 = (b * math.cos(A1) + x)
+	y1 = (y - y) +4
+	z1 = (b * math.sin(A1) + z) 
+	
+code block 
+	
+	
+*/
+	
+	
+----------------------------------------------------------	
+	#python example.
+
+	# -*- coding: utf-8 -*-
+
+
+	#code by adam dabdoub
+
+
+	import math 
+	import numpy
+
+	x = 39.375346
+	y = 10.0
+	z = -84.208137
+	V1 = {'X': x, 'Y': y, 'Z': z}
+	G1 = math.degrees(45) #degrees
+	A1 = math.degrees(45) # or 45 degrees
+	R = 10 #radius to target or distance to target
+
+	#180 degrees = west
+	#90 degrees = south
+	#270 degrees = north
+	#0 degrees = east
+
+	a = y
+	c = a//(math.cos(a))
+	b = math.sqrt(c ** 2 + a ** 2)
+	x1 = (b * math.cos(A1) + x)
+	y1 = ((y - y) + 4)
+	z1 = (b * math.sin(A1) + z) 
+	V2 = (x1,y1,z1)
+	print("UAV Cordinates:\n", V1)
+	print("Person Cordinates:\n", V2)
+	------------------------------------------------------------------
