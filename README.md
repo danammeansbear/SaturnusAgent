@@ -1,4 +1,4 @@
-An example of Unity 3D 2017 works with ZeroMQ
+An example of Unity 3D 2022 works with ZeroMQ
 =============================================
 
 ### Environment
